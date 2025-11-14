@@ -674,6 +674,8 @@
     <!-- Introduction / Generalization -->
     <section class="intro-section">
         <div class="container">
+
+            <!--   以下被注释
             <h2>Overview</h2>
             <p class="section-intro">
                 MathSight focuses on the ability of models to jointly understand mathematical structures and visual layouts,
@@ -694,6 +696,34 @@
                     <p>Each problem is annotated with difficulty labels (e.g., easy / medium / hard, undergraduate / graduate), supporting curriculum-style evaluation and scaling studies.</p>
                 </div>
             </div>
+            -->
+            <h2>Why MathSight?</h2>
+            <p>Recent VLMs achieve impressive scores on multimodal math benchmarks, but it remains unclear how much they truly benefit from visual input. Existing datasets usually provide only a single, clean diagram per problem and rarely isolate the contribution of the image modality. As a result, it is difficult to tell whether models genuinely perform vision-grounded reasoning or mainly rely on linguistic priors. </p>
+
+            <ul>
+              <li><strong>Visual robustness gap.</strong> Subtle changes in visual style (e.g., hand-drawn or photo-captured diagrams)
+                  can flip previously correct answers into wrong ones, revealing fragile visual understanding.:contentReference[oaicite:0]{index=0}</li>
+              <li><strong>Missing visual variants.</strong> Prior benchmarks typically offer only one image per problem and do not
+                  support controlled comparisons across different visual conditions.:contentReference[oaicite:1]{index=1}</li>
+              <li><strong>Text-only confound.</strong> Many problems can be partially solved from text alone, making it hard to
+                  measure the true value of visual information.:contentReference[oaicite:2]{index=2}</li>
+            </ul>
+
+            <p>
+            MathSight is designed to directly address these issues by providing controlled visual variants
+            and a matched text-only setting for university-level mathematical reasoning.:contentReference[oaicite:3]{index=3}
+            </p>
+
+            <h3>Main Contributions</h3>
+            <ul>
+              <li>A university-level multimodal benchmark with multiple visual variants and a matched text-only track.:contentReference[oaicite:4]{index=4}</li>
+              <li>A systematic analysis of visual sensitivity in state-of-the-art VLMs under original, hand-drawn, photo-captured,
+                  and no-image conditions.:contentReference[oaicite:5]{index=5}</li>
+              <li>Empirical evidence that strong models often match or surpass multimodal performance using text only,
+                  highlighting a gap between visual understanding and language-driven reasoning.:contentReference[oaicite:6]{index=6}</li>
+            </ul>
+
+            
         </div>
     </section>
 

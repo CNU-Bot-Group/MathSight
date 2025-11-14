@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSight: A Benchmark for Mathematical Visual Reasoning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+        }
+
+        .header {
+            background: #ffffff;
+            color: #1a202c;
+            padding: 100px 20px 80px;
+            text-align: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #1a202c;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            font-weight: 300;
+            color: #475569;
+        }
+
+        .authors {
+            margin: 25px 0;
+            font-size: 1.15em;
+            font-weight: 400;
+            color: #1a202c;
+        }
+
+        .authors span {
+            margin: 0 12px;
+            display: inline-block;
+        }
+
+        .corresponding {
+            position: relative;
+            top: -5px;
+            font-size: 0.75em;
+        }
+
+        .affiliation {
+            margin-top: 15px;
+            font-size: 1.05em;
+            font-weight: 300;
+            color: #64748b;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            background: #1a202c;
+            border: 2px solid #1a202c;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: white;
+            color: #1a202c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 90px 20px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        section h2 {
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #1a202c;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-intro {
+            text-align: center;
+            font-size: 1.15em;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .task-card {
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        .task-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #1a202c;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: #1a202c;
+        }
+
+        .task-card .label {
+            font-size: 0.85em;
+            color: #1a202c;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .task-card .description {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 0.98em;
+        }
+
+        .abstract-content {
+            max-width: 950px;
+            margin: 0 auto;
+            font-size: 1.12em;
+            line-height: 1.9;
+            color: #475569;
+            text-align: justify;
+        }
+
+        .abstract-content p {
+            margin-bottom: 20px;
+        }
+
+        .abstract-content strong {
+            color: #1a202c;
+            font-weight: 600;
+        }
+
+        .updates {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 25px 30px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+
+        .updates h3 {
+            color: #92400e;
+            margin-bottom: 18px;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        .updates ul {
+            list-style: none;
+        }
+
+        .updates li {
+            padding: 10px 0;
+            color: #78350f;
+            font-size: 0.98em;
+        }
+
+        .updates li::before {
+            content: "▸ ";
+            color: #f59e0b;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .updates strong {
+            color: #92400e;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 40px 25px;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: #1a202c;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 3.0em;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+            color: #1a202c;
+        }
+
+        .stat-label {
+            font-size: 1.08em;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            margin-top: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 18px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #1a202c;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .highlight-row {
+            background: #f0f4ff;
+            font-weight: 600;
+            color: #1a202c;
+        }
+
+        .highlight-row:hover {
+            background: #e0e7ff;
+        }
+
+        .explorer-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-top: 50px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        select, button {
+            padding: 12px 24px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.98em;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        select:focus, button:focus {
+            outline: none;
+            border-color: #1a202c;
+        }
+
+        select:hover {
+            border-color: #1a202c;
+        }
+
+        button {
+            background: #1a202c;
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .task-display {
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            min-height: 250px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .task-display h4 {
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .task-display p {
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .task-display strong {
+            color: #1a202c;
+            font-weight: 600;
+        }
+
+        .task-display ul {
+            margin-left: 25px;
+            color: #475569;
+        }
+
+        .task-display ul li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .visualization {
+            margin-top: 50px;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .visualization h3 {
+            color: #1a202c;
+            margin-bottom: 30px;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .chart {
+            padding: 25px;
+            background: white;
+            border-radius: 8px;
+            min-height: 280px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .chart h4 {
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .bar {
+            background: #1a202c;
+            height: 36px;
+            margin: 12px 0;
+            border-radius: 6px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .bar:hover {
+            transform: scaleX(1.02);
+            transform-origin: left;
+            opacity: 0.8;
+        }
+
+        .bar-label {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .citation {
+            background: #1a202c;
+            color: white;
+            padding: 80px 20px;
+            border-bottom: none;
+        }
+
+        .citation h2 {
+            color: white;
+        }
+
+        .citation-box {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            border: 1px solid #334155;
+            line-height: 1.6;
+        }
+
+        .footer {
+            background: #0f172a;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: none;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-authors {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-author {
+            text-align: center;
+        }
+
+        .footer-author h4 {
+            color: #94a3b8;
+            margin-bottom: 5px;
+            font-size: 1.05em;
+        }
+
+        .footer-author p {
+            color: #64748b;
+            font-size: 0.9em;
+        }
+
+        .footer a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            font-size: 0.9em;
+            color: #64748b;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: #1a202c;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 1000;
+            font-size: 1.5em;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .scroll-top.visible {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            section h2 {
+                font-size: 2em;
+            }
+            
+            .stat-number {
+                font-size: 2.5em;
+            }
+
+            .task-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .generalization-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .gen-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+
+        .gen-card:hover {
+            border-color: #1a202c;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .gen-card h4 {
+            color: #1a202c;
+            margin-bottom: 10px;
+            font-size: 1.15em;
+        }
+
+        .gen-card p {
+            color: #64748b;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <h1>MathSight</h1>
+            <p class="subtitle">A Benchmark for Mathematical Visual Reasoning</p>
+
+            <!-- TODO: 把下面作者和单位改成你论文里的实际作者信息 -->
+            <div class="authors">
+                <span>First Author<span class="corresponding">*</span></span>
+                <span>Second Author</span>
+                <span>Third Author</span>
+                <span>...</span>
+            </div>
+            <div class="affiliation">Your University / Research Group</div>
+            <div class="affiliation"><span class="corresponding">*</span>Corresponding Author</div>
+            
+            <div class="buttons">
+                <!-- TODO: 把 arXiv 链接改成你正式的 arXiv 地址 -->
+                <a href="https://arxiv.org/abs/XXXX.XXXXX" class="btn">📄 arXiv</a>
+                <!-- 代码仓库：直接指向你现在这个 GitHub 仓库 -->
+                <a href="https://github.com/CNU-Bot-Group/MathSight" class="btn">💻 Code</a>
+                <!-- 如果将来有 HuggingFace，可以把链接改掉 -->
+                <a href="#" class="btn">📦 Dataset</a>
+                <a href="#data-overview" class="btn">📊 Statistics</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Abstract -->
+    <section class="abstract">
+        <div class="container">
+            <h2>Abstract</h2>
+            <div class="abstract-content">
+                <!-- TODO: 这里建议直接粘贴你论文里的 Abstract 英文 -->
+                <p><strong>MathSight</strong> is a benchmark designed to evaluate and advance mathematical visual reasoning in large language and vision-language models. It focuses on challenging scenarios where models must jointly understand mathematical expressions, diagrams, and natural language instructions.</p>
+
+                <p>The benchmark covers a diverse set of problem types, including function plots, geometric diagrams, symbolic manipulations grounded in figures, tables, and mixed textual–visual reasoning. Each instance is annotated with ground-truth solutions and fine-grained metadata such as subject category, difficulty level, and problem type, enabling detailed analysis of model behavior.</p>
+
+                <p>We provide both text-only and multimodal subsets, together with standardized evaluation scripts and error-type annotations. Experiments with a wide range of strong baselines reveal that current models still struggle on visually grounded mathematical reasoning, highlighting substantial room for future work.</p>
+
+                <div class="updates">
+                    <h3>🔔 Updates</h3>
+                    <ul>
+                        <!-- TODO: 根据实际时间更新这些记录 -->
+                        <li><strong>2025-MM-DD</strong>: Initial MathSight dataset and code released.</li>
+                        <li><strong>2025-MM-DD</strong>: Leaderboard and evaluation script released.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction / Generalization -->
+    <section class="intro-section">
+        <div class="container">
+            <h2>Overview</h2>
+            <p class="section-intro">
+                MathSight focuses on the ability of models to jointly understand mathematical structures and visual layouts,
+                including plots, geometric drawings, annotated diagrams, and typed expressions embedded in images.
+            </p>
+            
+            <div class="generalization-types">
+                <div class="gen-card">
+                    <h4>Text-only vs Multimodal</h4>
+                    <p>Evaluate both pure symbolic reasoning based on LaTeX-style statements and visually grounded reasoning that requires interpreting equations, axes, and diagrams in images.</p>
+                </div>
+                <div class="gen-card">
+                    <h4>Across Subjects</h4>
+                    <p>Problems span calculus, algebra, geometry, probability & statistics, and other undergraduate-level topics, enabling subject-wise comparison and analysis.</p>
+                </div>
+                <div class="gen-card">
+                    <h4>Difficulty Levels</h4>
+                    <p>Each problem is annotated with difficulty labels (e.g., easy / medium / hard, undergraduate / graduate), supporting curriculum-style evaluation and scaling studies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Task Examples -->
+    <section class="task-examples">
+        <div class="container">
+            <h2>Example Problems</h2>
+            <p class="section-intro">A few representative MathSight examples illustrating visually grounded mathematical reasoning.</p>
+            
+            <div class="task-grid">
+                <div class="task-card">
+                    <div class="label">(a) Function Plot Interpretation</div>
+                    <div class="description">
+                        Given a velocity–time plot of a particle, determine on which intervals the acceleration is negative and compute the total distance traveled over the first 10 seconds.
+                    </div>
+                </div>
+                <div class="task-card">
+                    <div class="label">(b) Geometry with Diagram</div>
+                    <div class="description">
+                        A triangle with annotated side lengths and angles is shown. Using the diagram, find the length of segment AD and the area of the shaded region.
+                    </div>
+                </div>
+                <div class="task-card">
+                    <div class="label">(c) Piecewise Graph Reasoning</div>
+                    <div class="description">
+                        From a graph of a piecewise-defined function, determine all points of discontinuity, classify each as removable or non-removable, and compute the corresponding one-sided limits.
+                    </div>
+                </div>
+                <div class="task-card">
+                    <div class="label">(d) Probability Table</div>
+                    <div class="description">
+                        A contingency table for two events is shown in an image. Compute the conditional probability, odds ratio, and decide whether the events can be treated as independent.
+                    </div>
+                </div>
+                <div class="task-card">
+                    <div class="label">(e) Algebra on the Blackboard</div>
+                    <div class="description">
+                        A photo of a blackboard shows a partially written system of equations. Recover the full system and solve for the unknown vector, explaining each algebraic transformation.
+                    </div>
+                </div>
+                <div class="task-card">
+                    <div class="label">(f) Multi-step Word Problem</div>
+                    <div class="description">
+                        A word problem is paired with a supporting diagram (number line, bar chart, or schematic). Derive the correct symbolic formulation and compute the final numeric answer.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats-section" id="data-overview">
+        <div class="container">
+            <h2>Dataset Statistics</h2>
+            <div class="stats-grid">
+                <!-- TODO: 把下面几个数字改成你实际的数据量 -->
+                <div class="stat-card">
+                    <span class="stat-number">XXX</span>
+                    <span class="stat-label">Total Problems</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">XXX</span>
+                    <span class="stat-label">Images</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">XX</span>
+                    <span class="stat-label">Subjects</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">XX%</span>
+                    <span class="stat-label">Multimodal Portion</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">XX / XX</span>
+                    <span class="stat-label">Undergrad / Grad Problems</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table (optional, placeholder) -->
+    <section class="comparison-section">
+        <div class="container">
+            <h2>Comparison with Existing Benchmarks</h2>
+            <p class="section-intro">MathSight complements existing mathematical and visual reasoning benchmarks with a focus on real exam-style problems grounded in images.</p>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Benchmark</th>
+                            <th>Modality</th>
+                            <th>Focus</th>
+                            <th># Problems</th>
+                            <th>Visually Grounded?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight-row">
+                            <td><strong>MathSight</strong></td>
+                            <td>Text + Images</td>
+                            <td>Math visual reasoning</td>
+                            <td>XXX</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>GSM8K</td>
+                            <td>Text</td>
+                            <td>Grade-school math word problems</td>
+                            <td>8.5K</td>
+                            <td>✗</td>
+                        </tr>
+                        <tr>
+                            <td>MATH</td>
+                            <td>Text</td>
+                            <td>Olympiad-style competition problems</td>
+                            <td>12.5K</td>
+                            <td>✗</td>
+                        </tr>
+                        <tr>
+                            <td>MathVista / similar</td>
+                            <td>Text + Images</td>
+                            <td>General math vision tasks</td>
+                            <td>Varies</td>
+                            <td>✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Visualization -->
+    <section class="data-explorer">
+        <div class="container">
+            <h2>Data Overview</h2>
+            <div class="visualization">
+                <div class="chart-container">
+                    <div class="chart">
+                        <h4>Subject Distribution (Example)</h4>
+                        <!-- TODO: 宽度可以根据真实比例微调 -->
+                        <div class="bar" style="width: 90%;">
+                            <span class="bar-label">Calculus (e.g., 30%)</span>
+                        </div>
+                        <div class="bar" style="width: 75%;">
+                            <span class="bar-label">Algebra (e.g., 25%)</span>
+                        </div>
+                        <div class="bar" style="width: 60%;">
+                            <span class="bar-label">Probability & Statistics</span>
+                        </div>
+                        <div class="bar" style="width: 50%;">
+                            <span class="bar-label">Geometry & Topology</span>
+                        </div>
+                        <div class="bar" style="width: 40%;">
+                            <span class="bar-label">Discrete / Other</span>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <h4>Difficulty Distribution (Example)</h4>
+                        <div class="bar" style="width: 80%;">
+                            <span class="bar-label">Easy</span>
+                        </div>
+                        <div class="bar" style="width: 65%;">
+                            <span class="bar-label">Medium</span>
+                        </div>
+                        <div class="bar" style="width: 45%;">
+                            <span class="bar-label">Hard</span>
+                        </div>
+                        <div class="bar" style="width: 30%;">
+                            <span class="bar-label">Graduate-level</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Explorer -->
+    <section class="data-explorer">
+        <div class="container">
+            <h2>Problem Explorer</h2>
+            <p class="section-intro">Sample problems from MathSight. Click "Random Problem" to browse a random example.</p>
+            <div class="explorer-container">
+                <div class="controls">
+                    <select id="domainSelect">
+                        <option>-- Select Subject --</option>
+                        <option>Calculus</option>
+                        <option>Algebra</option>
+                        <option>Geometry</option>
+                        <option>Probability</option>
+                        <option>Statistics</option>
+                    </select>
+                    <select id="difficultySelect">
+                        <option>-- Select Difficulty --</option>
+                        <option>Easy</option>
+                        <option>Medium</option>
+                        <option>Hard</option>
+                        <option>Graduate</option>
+                    </select>
+                    <button onclick="loadRandomTask()">🎲 Random Problem</button>
+                </div>
+                
+                <div class="task-display" id="taskDisplay">
+                    <h4>Select a subject or click "Random Problem"</h4>
+                    <p>This area will display a sample problem, including a short description of the visual input and the expected reasoning steps.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citation -->
+    <section class="citation">
+        <div class="container">
+            <h2 style="color: white;">Citation</h2>
+            <div class="citation-box">
+@article{your_mathsight_2025,
+  title   = {MathSight: A Benchmark for Mathematical Visual Reasoning},
+  author  = {First Author and Second Author and Third Author and Others},
+  journal = {arXiv preprint arXiv:XXXX.XXXXX},
+  year    = {2025}
+}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <h3 style="margin-bottom: 20px;">Contact</h3>
+            <div class="footer-authors">
+                <!-- TODO: 改成你的通讯作者信息 -->
+                <div class="footer-author">
+                    <h4>First Author</h4>
+                    <p>Your University<br/>email@example.com</p>
+                </div>
+                <div class="footer-author">
+                    <h4>Corresponding Author</h4>
+                    <p>Your University<br/>corresponding@example.com</p>
+                </div>
+            </div>
+            <div class="footer-note">
+                <p>Unless stated otherwise, the code in this repository is released under the MIT license. Please see the README for dataset licensing details.</p>
+                <p style="margin-top: 15px;">© 2025 MathSight Authors | <a href="https://github.com/CNU-Bot-Group/MathSight">GitHub Repository</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+        ↑
+    </div>
+
+    <script>
+        // Sample problems database (这里只是示例，真实可以以后替换成你 dataset 里的样例)
+        const tasks = [
+            {
+                subject: 'Calculus',
+                difficulty: 'Easy',
+                description: 'The graph of v(t) (velocity) of a particle moving along a line is given. Determine on which intervals the particle is speeding up and on which intervals it is slowing down.',
+                steps: [
+                    'Identify intervals where velocity and acceleration have the same sign.',
+                    'Use the slope of the velocity graph as the acceleration.',
+                    'Mark speeding-up regions (same sign) and slowing-down regions (opposite sign).'
+                ]
+            },
+            {
+                subject: 'Calculus',
+                difficulty: 'Medium',
+                description: 'From the given piecewise graph of f(x), compute the definite integral ∫_{0}^{5} f(x) dx by interpreting signed areas under the curve.',
+                steps: [
+                    'Decompose the interval [0,5] into subintervals where the graph is simple (triangles/rectangles).',
+                    'Compute the signed area on each subinterval.',
+                    'Add all contributions to obtain the final value of the integral.'
+                ]
+            },
+            {
+                subject: 'Geometry',
+                difficulty: 'Medium',
+                description: 'A circle with several chords is shown. Using the diagram, find the measure of the marked angle and the length of a missing chord.',
+                steps: [
+                    'Use inscribed angle theorems relating arc measures to angles.',
+                    'Apply intersecting chords theorem (product of segments).',
+                    'Substitute known lengths and solve for the unknown.'
+                ]
+            },
+            {
+                subject: 'Probability',
+                difficulty: 'Hard',
+                description: 'A 2×2 contingency table is shown in the image. Decide whether events A and B are independent and compute P(A | B).',
+                steps: [
+                    'Read all counts from the table and convert them to probabilities.',
+                    'Check whether P(A ∩ B) = P(A)P(B).',
+                    'Compute P(A | B) = P(A ∩ B) / P(B).'
+                ]
+            },
+            {
+                subject: 'Algebra',
+                difficulty: 'Graduate',
+                description: 'A handwritten derivation of a matrix decomposition is partially shown on the board. Recover the missing step and verify that the final factorization is correct.',
+                steps: [
+                    'Translate the visible equations into a clean algebraic form.',
+                    'Infer the missing step using properties of determinants or eigenvalues.',
+                    'Multiply the proposed factors to confirm that they reproduce the original matrix.'
+                ]
+            }
+        ];
+
+        function loadRandomTask() {
+            const task = tasks[Math.floor(Math.random() * tasks.length)];
+            const display = document.getElementById('taskDisplay');
+            
+            display.innerHTML = `
+                <h4>Sample Problem</h4>
+                <p><strong>Subject:</strong> ${task.subject}</p>
+                <p><strong>Difficulty:</strong> ${task.difficulty}</p>
+                <p><strong>Problem Description:</strong> ${task.description}</p>
+                <p><strong>Expected Reasoning Outline:</strong></p>
+                <ul>
+                    ${task.steps.map((step, i) => `<li>Step ${i + 1}: ${step}</li>`).join('')}
+                </ul>
+            `;
+        }
+
+        // Scroll to top functionality
+        window.onscroll = function() {
+            const scrollTop = document.getElementById('scrollTop');
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

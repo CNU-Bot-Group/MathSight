@@ -620,15 +620,17 @@
     <!-- Header -->
     <div class="header">
         <div class="container">
-            <h1>MathSight</h1>
-            <p class="subtitle">A Benchmark for Mathematical Visual Reasoning</p>
+            <h1>MathSight: A Benchmark Exploring Have Vision-Language Models Really Seen in University-Level Mathematical Reasoning?</h1>
+            <!-- <p class="subtitle">A Benchmark for Mathematical Visual Reasoning</p> -->
 
             <!-- TODO: 把下面作者和单位改成你论文里的实际作者信息 -->
             <div class="authors">
-                <span>First Author<span class="corresponding">*</span></span>
-                <span>Second Author</span>
-                <span>Third Author</span>
-                <span>...</span>
+                <span>Yuandong Wang</span>
+                <span>Yao Cui</span>
+                <span>Yuxin Zhao</span>
+                <span>Zhen Yang<span class="corresponding">*</span></span>
+                <span>Yangfu Zhu</span>
+                <span>Zhenzhou Shao</span>
             </div>
             <div class="affiliation">Your University / Research Group</div>
             <div class="affiliation"><span class="corresponding">*</span>Corresponding Author</div>
@@ -651,12 +653,12 @@
             <h2>Abstract</h2>
             <div class="abstract-content">
                 <!-- TODO: 这里建议直接粘贴你论文里的 Abstract 英文 -->
-                <p><strong>MathSight</strong> is a benchmark designed to evaluate and advance mathematical visual reasoning in large language and vision-language models. It focuses on challenging scenarios where models must jointly understand mathematical expressions, diagrams, and natural language instructions.</p>
-
-                <p>The benchmark covers a diverse set of problem types, including function plots, geometric diagrams, symbolic manipulations grounded in figures, tables, and mixed textual–visual reasoning. Each instance is annotated with ground-truth solutions and fine-grained metadata such as subject category, difficulty level, and problem type, enabling detailed analysis of model behavior.</p>
-
-                <p>We provide both text-only and multimodal subsets, together with standardized evaluation scripts and error-type annotations. Experiments with a wide range of strong baselines reveal that current models still struggle on visually grounded mathematical reasoning, highlighting substantial room for future work.</p>
-
+                <p>Recent advances in Vision-Language Models (VLMs) have achieved impressive progress in multimodal mathematical reasoning. Yet, how much visual information truly contributes to reasoning remains unclear. Existing benchmarks report strong overall performance but seldom isolate the role of the image modality, leaving open whether VLMs genuinely leverage visual understanding or merely depend on linguistic priors. </p>
+                
+                <p>To address this, we present <strong>MathSight</strong>, a university-level multimodal mathematical reasoning benchmark designed to disentangle and quantify the effect of visual input. Each problem includes multiple visual variants—original, hand-drawn, photo-captured—and a text-only condition for controlled comparison. </p>
+                
+                <p>Experiments on state-of-the-art VLMs reveal a consistent trend: the contribution of visual information diminishes with increasing problem difficulty. Remarkably, Qwen3-VL without any image input surpasses both its multimodal variants and GPT-5, underscoring the need for benchmarks like MathSight to advance genuine vision-grounded reasoning in future models. </p>
+               
                 <div class="updates">
                     <h3>🔔 Updates</h3>
                     <ul>

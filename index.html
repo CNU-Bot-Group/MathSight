@@ -809,12 +809,12 @@
                     <span class="stat-label">Multimodal items</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">6</span>
-                    <span class="stat-label">Subjects</span>
-                </div>
-                <div class="stat-card">
                     <span class="stat-number">631*3</span>
                     <span class="stat-label">Images</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">Subjects</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">1713 / 335</span>
@@ -834,47 +834,119 @@
             <h2>Comparison with Existing Benchmarks</h2>
             <p class="section-intro">MathSight complements existing mathematical and visual reasoning benchmarks with a focus on real exam-style problems grounded in images.</p>
             <div class="comparison-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Benchmark</th>
-                            <th>Modality</th>
-                            <th>Focus</th>
-                            <th># Problems</th>
-                            <th>Visually Grounded?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="highlight-row">
-                            <td><strong>MathSight</strong></td>
-                            <td>Text + Images</td>
-                            <td>Math visual reasoning</td>
-                            <td>XXX</td>
-                            <td>✓</td>
-                        </tr>
-                        <tr>
-                            <td>GSM8K</td>
-                            <td>Text</td>
-                            <td>Grade-school math word problems</td>
-                            <td>8.5K</td>
-                            <td>✗</td>
-                        </tr>
-                        <tr>
-                            <td>MATH</td>
-                            <td>Text</td>
-                            <td>Olympiad-style competition problems</td>
-                            <td>12.5K</td>
-                            <td>✗</td>
-                        </tr>
-                        <tr>
-                            <td>MathVista / similar</td>
-                            <td>Text + Images</td>
-                            <td>General math vision tasks</td>
-                            <td>Varies</td>
-                            <td>✓</td>
-                        </tr>
-                    </tbody>
-                </table>
+              <p class="table-caption">
+                Table 1: Existing benchmarks. &ldquo;Visual Variant&rdquo; indicates that visual input has different variants,
+                &ldquo;Grad. Level&rdquo; presents graduate-level problems, and &ldquo;Pro.Q&rdquo; stands for proving questions.
+              </p>
+            
+              <table>
+                <thead>
+                  <tr>
+                    <th rowspan="2">Benchmark</th>
+                    <th rowspan="2">Grad. Level</th>
+                    <th rowspan="2">Pro.Q</th>
+                    <th colspan="3">Visual Variant</th>
+                    <th rowspan="2">Image Size</th>
+                  </tr>
+                  <tr>
+                    <th>Original</th>
+                    <th>Hand-drawn</th>
+                    <th>Photo-captured</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TheoremQA</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr>
+                    <td>MathVista</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr>
+                    <td>Scibench</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr>
+                    <td>QRData</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr>
+                    <td>MATH-Vision</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr>
+                    <td><em>MMMU<sub>math</sub></em></td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr>
+                    <td>U-Math</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr>
+                    <td>Dynamath</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr>
+                    <td>MathCheck</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✓</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                    <td>✗</td>
+                  </tr>
+                  <tr class="highlight-row">
+                    <td><strong>MathSight (our work)</strong></td>
+                    <td>✓</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                    <td>✓</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
         </div>
     </section>

@@ -253,6 +253,33 @@
             transition: all 0.3s;
         }
 
+        /* Introduction cards 微调一下样式 */
+        .intro-section {
+          padding-top: 40px;
+          padding-bottom: 40px;
+        }
+        
+        .intro-grid {
+          margin-top: 32px;
+        }
+        
+        .intro-card {
+          text-align: left;
+        }
+        
+        .intro-card h3 {
+          font-size: 1.35em;
+          margin-bottom: 10px;
+          color: #0f172a;
+        }
+        
+        .intro-card p {
+          font-size: 0.98em;
+          color: #4b5563;
+          line-height: 1.7;
+        }
+
+        
         .stat-card:hover {
             border-color: #1a202c;
             transform: translateY(-5px);
@@ -713,7 +740,49 @@
         </div>
     </section>
 
-    <!-- Introduction / Generalization -->
+    <!-- Introduction -->
+    <section class="intro-section">
+      <div class="container">
+    
+        <h2>Introduction</h2>
+        <p class="section-intro">
+          MathSight contains <strong>2,048</strong> university-level math problems, including
+          <strong>661</strong> multimodal items with diagrams and <strong>1,387</strong> text-only items.
+          It is designed to probe whether modern vision-language models truly benefit from visual input
+          in mathematical reasoning.
+        </p>
+    
+        <div class="stat-grid intro-grid">
+          <div class="stat-card intro-card">
+            <h3>Multi-View Visual Reasoning</h3>
+            <p>
+              Each multimodal problem is paired with multiple visual variants&mdash;original, hand-drawn,
+              photo-captured, and a text-only condition&mdash;to disentangle the contribution of vision
+              from linguistic priors.
+            </p>
+          </div>
+    
+          <div class="stat-card intro-card">
+            <h3>Challenging University-Level Coverage</h3>
+            <p>
+              Problems span six core subjects and are predominantly graduate-level in the multimodal track,
+              bridging traditional text-only math benchmarks and real exam-style visual reasoning.
+            </p>
+          </div>
+    
+          <div class="stat-card intro-card">
+            <h3>Vision vs. Text Analysis</h3>
+            <p>
+              MathSight enables controlled comparisons of state-of-the-art VLMs with and without images,
+              revealing when models truly rely on visual understanding and when text alone is sufficient.
+            </p>
+          </div>
+        </div>
+    
+      </div>
+    </section>
+    
+    <!-- Why MathSight -->
     <section class="intro-section">
         <div class="container">
 

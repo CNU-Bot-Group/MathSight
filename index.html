@@ -188,6 +188,92 @@
             font-size: 0.98em;
         }
 
+        /* ==== Problem Explorer styles ==== */
+
+        .data-explorer {
+          padding: 48px 0;
+        }
+        
+        .explorer-controls {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px 16px;
+          align-items: flex-end;
+          margin-top: 16px;
+          margin-bottom: 16px;
+        }
+        
+        .explorer-controls label {
+          display: flex;
+          flex-direction: column;
+          font-size: 0.9em;
+          color: #475569;
+          gap: 4px;
+        }
+        
+        .explorer-controls select {
+          padding: 6px 10px;
+          border-radius: 8px;
+          border: 1px solid #cbd5e1;
+          background: #ffffff;
+          min-width: 180px;
+          font-size: 0.95em;
+        }
+        
+        #random-problem-btn {
+          padding: 8px 16px;
+          border-radius: 999px;
+          border: none;
+          font-size: 0.95em;
+          cursor: pointer;
+          background: #0f172a;
+          color: #ffffff;
+          box-shadow: 0 2px 6px rgba(15,23,42,0.15);
+        }
+        
+        #random-problem-btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 10px rgba(15,23,42,0.18);
+        }
+        
+        .problem-display {
+          margin-top: 12px;
+        }
+        
+        .problem-display .placeholder {
+          font-size: 0.9em;
+          color: #94a3b8;
+          font-style: italic;
+        }
+        
+        .problem-card {
+          margin-top: 12px;
+          padding: 16px 20px;
+          border-radius: 12px;
+          background: #f8fafc;
+          box-shadow: 0 2px 6px rgba(15,23,42,0.08);
+        }
+        
+        .problem-meta {
+          font-size: 0.9em;
+          color: #64748b;
+          margin-bottom: 8px;
+        }
+        
+        .problem-question,
+        .problem-answer {
+          white-space: pre-wrap;   /* 关键：保留换行 */
+          font-size: 0.96em;
+          color: #0f172a;
+          line-height: 1.7;
+        }
+        
+        .problem-answer {
+          margin-top: 6px;
+          color: #334155;
+        }
+
+        
         .abstract-content {
             max-width: 950px;
             margin: 0 auto;
@@ -693,7 +779,10 @@
             font-size: 0.95em;
             line-height: 1.6;
         }
+        
+        
 
+        
     </style>
 </head>
 <body>
@@ -1173,7 +1262,8 @@
         </div>
     </section>
 
-    <!-- Data Explorer -->
+    <!--
+    <!-- Data Explorer 原版 -->
     <section class="data-explorer">
         <div class="container">
             <h2>Problem Explorer</h2>
@@ -1205,6 +1295,214 @@
             </div>
         </div>
     </section>
+    -->
+
+    <!-- 上面是别的 section，比如 Comparison with Existing Benchmarks -->
+
+        <section class="data-explorer">
+          <div class="container">
+            <h2>Problem Explorer</h2>
+            <p class="section-intro">
+              Browse a small subset of MathSight text-only problems by difficulty and subject.
+            </p>
+        
+            <div class="explorer-controls">
+              <label>
+                Difficulty
+                <select id="difficulty-select">
+                  <option value="any">Any</option>
+                  <option value="undergrad">Undergraduate-level</option>
+                  <option value="grad">Graduate-level</option>
+                </select>
+              </label>
+        
+              <label>
+                Problem type
+                <select id="modality-select">
+                  <option value="any">Any</option>
+                  <option value="text">Text-only</option>
+                  <!-- 将来你加 multimodal 再启用 -->
+                  <!-- <option value="multi">Multimodal</option> -->
+                </select>
+              </label>
+        
+              <button id="random-problem-btn">Show Example</button>
+            </div>
+        
+            <div id="problem-display" class="problem-display">
+              <p class="placeholder">
+                Select difficulty and problem type, then click “Show Example”.
+              </p>
+            </div>
+          </div>
+        </section>
+        
+        <!-- 把 JS 放在这里，然后再是 </body> -->
+        <script>
+          // ==== 4 道 text-only 示例题 ====
+          const problems = [
+            /* === Calculus · Graduate-level === */
+            {
+              id: 'C-G-1',
+              difficulty: 'Graduate-level',
+              difficultyKey: 'grad',      // 用于下拉筛选
+              modality: 'text',
+              subject: 'Calculus',
+              question: `Use the method of Lagrange multipliers to find the maximum value of
+        f(x, y) = x² y
+        on the circle x² + y² = 3.`,
+              answerSolution: `Let g(x, y) = x² + y² = 3.
+        
+        Gradients:
+        ∇f = (2xy, x²)
+        ∇g = (2x, 2y)
+        
+        Lagrange system:
+        2xy = λ·2x
+        x²  = λ·2y
+        x² + y² = 3
+        
+        From 2xy = 2λx:
+        
+        - If x = 0 → y = ±√3
+        - If x ≠ 0 → y = λ, and x² = 2y².
+          Substitute into x² + y² = 3:
+          2y² + y² = 3 → y² = 1 → x² = 2.
+        
+        Critical points:
+        (0, ±√3), (±√2, ±1).
+        
+        Evaluate f:
+        f(0, ±√3) = 0
+        f(±√2, 1) = 2
+        f(±√2, −1) = −2.
+        
+        Maximum value = 2, attained at (±√2, 1).`,
+              groundTruth: '2'
+            },
+        
+            /* === Calculus · Undergraduate-level === */
+            {
+              id: 'C-U-1',
+              difficulty: 'Undergraduate-level',
+              difficultyKey: 'undergrad',
+              modality: 'text',
+              subject: 'Calculus',
+              question: `T is a linear transformation in ℝ² with matrix A.
+        Find eigenvalues and eigenvectors of A without doing matrix calculations (draw a picture).
+        T = reflection over the line y = 2x.`,
+              answerSolution: `Reflection over y = 2x:
+        
+        - Every vector on the line y = 2x is unchanged → eigenvalue λ = 1.
+          Eigenvectors: all (t, 2t), t ≠ 0.
+        
+        - Vectors perpendicular to y = 2x (the line y = −(1/2)x) are flipped → eigenvalue λ = −1.
+          Eigenvectors: all (s, −(1/2)s), s ≠ 0.`,
+              groundTruth: 'eigenvalues: 1 and −1'
+            },
+        
+            /* === Algebra · Graduate-level === */
+            {
+              id: 'A-G-1',
+              difficulty: 'Graduate-level',
+              difficultyKey: 'grad',
+              modality: 'text',
+              subject: 'Algebra',
+              question: `Find all solutions α with 0° < α < 90° to the equation:
+        1 + √3·tan(60° − α) = 1 / sin(α).`,
+              answerSolution: `Multiply both sides by cos(60° − α).
+        Rewrite constants: 1 = 2·sin(30°), √3 = 2·cos(30°).
+        
+        Then:
+        2 [ sin(30°)·cos(60° − α) + cos(30°)·sin(60° − α) ]
+        = cos(60° − α) / sin(α).
+        
+        Using the sine addition formula:
+        2·sin(30° + 60° − α) = 2·cos(α).
+        
+        Multiply both sides by sin(α):
+        2·sin(α)·cos(α) = cos(60° − α).
+        
+        Thus:
+        sin(2α) = sin(α + 30°).
+        
+        So either:
+        2α = α + 30°  → α = 30°
+        or
+        2α + α + 30° = 180° → 3α = 150° → α = 50°.`,
+              groundTruth: 'α = 30°, 50°'
+            },
+        
+            /* === Algebra · Undergraduate-level === */
+            {
+              id: 'A-U-1',
+              difficulty: 'Undergraduate-level',
+              difficultyKey: 'undergrad',
+              modality: 'text',
+              subject: 'Algebra',
+              question: `Diagonalize A, i.e., find A = P D P⁻¹ where P is invertible and D is diagonal.`,
+              answerSolution: `Using previously computed eigenvectors:
+        
+        P =
+        [ 1   0  −1 ]
+        [ 5   1   1 ]
+        [ 2   0   0 ]
+        
+        D =
+        [ 5   0   0 ]
+        [ 0   3   0 ]
+        [ 0   0   1 ]
+        
+        Thus A = P D P⁻¹.`,
+              groundTruth: 'P and D as above'
+            }
+          ];
+        
+          function pickRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+          }
+        
+          document.getElementById('random-problem-btn').addEventListener('click', () => {
+            const diff = document.getElementById('difficulty-select').value;   // 'any' / 'undergrad' / 'grad'
+            const mod  = document.getElementById('modality-select').value;     // 'any' / 'text'
+        
+            let filtered = problems.slice();
+        
+            if (diff !== 'any') {
+              filtered = filtered.filter(p => p.difficultyKey === diff);
+            }
+            if (mod !== 'any') {
+              filtered = filtered.filter(p => p.modality === mod);
+            }
+        
+            const disp = document.getElementById('problem-display');
+        
+            if (!filtered.length) {
+              disp.innerHTML = '<p class="placeholder">No example available for this selection.</p>';
+              return;
+            }
+        
+            const p = pickRandom(filtered);
+            const meta = `${p.difficulty} · ${p.subject}`;
+        
+            disp.innerHTML = `
+              <div class="problem-card">
+                <div class="problem-meta">${meta}</div>
+                <p class="problem-question">${p.question}</p>
+                ${
+                  p.groundTruth
+                    ? `<p class="problem-answer"><strong>Answer:</strong> ${p.groundTruth}</p>`
+                    : ''
+                }
+              </div>
+            `;
+          });
+        </script>
+
+    
+    
+    
+
 
     <!-- Citation -->
     <section class="citation">
@@ -1248,6 +1546,7 @@
         ↑
     </div>
 
+    <!--
     <script>
         // Sample problems database (这里只是示例，真实可以以后替换成你 dataset 里的样例)
         const tasks = [
@@ -1302,7 +1601,157 @@
                 ]
             }
         ];
-
+        
+        <script>
+          const problems = [
+            /* ========== Calculus · Graduate-level ========== */
+            {
+              id: 'C-G-1',
+              difficulty: 'Graduate-level',
+              difficultyKey: 'grad',     // 用于下拉筛选
+              modality: 'text',
+              subject: 'Calculus',
+              question: `Use the method of Lagrange multipliers to find the maximum value of
+        f(x, y) = x² y
+        on the circle x² + y² = 3.`,
+              answerSolution: `Let g(x, y) = x² + y² = 3.
+        
+        Gradients:
+        ∇f = (2xy, x²)
+        ∇g = (2x, 2y)
+        
+        Lagrange system:
+        2xy = λ·2x
+        x²  = λ·2y
+        x² + y² = 3
+        
+        From 2xy = 2λx:
+        
+        - If x = 0 → y = ±√3
+        - If x ≠ 0 → y = λ, and x² = 2y².
+          Substitute into x² + y² = 3:
+          2y² + y² = 3 → y² = 1 → x² = 2.
+        
+        Critical points:
+        (0, ±√3), (±√2, ±1).
+        
+        Evaluate f:
+        f(0, ±√3) = 0
+        f(±√2, 1) = 2
+        f(±√2, −1) = −2.
+        
+        Maximum value = 2, attained at (±√2, 1).`,
+              groundTruth: '2'
+            },
+        
+            /* ========== Calculus · Undergraduate-level ========== */
+            {
+              id: 'C-U-1',
+              difficulty: 'Undergraduate-level',
+              difficultyKey: 'undergrad',
+              modality: 'text',
+              subject: 'Calculus',
+              question: `T is a linear transformation in ℝ² with matrix A.
+        Find eigenvalues and eigenvectors of A without doing matrix calculations (draw a picture).
+        T = reflection over the line y = 2x.`,
+              answerSolution: `Reflection over y = 2x:
+        
+        - Every vector lying on the line y = 2x is unchanged → eigenvalue λ = 1.
+          Eigenvectors: all (t, 2t), t ≠ 0.
+        
+        - Vectors perpendicular to y = 2x (the line y = −(1/2)x) are flipped → eigenvalue λ = −1.
+          Eigenvectors: all (s, −(1/2)s), s ≠ 0.`,
+              groundTruth: 'eigenvalues: 1 and −1'
+            },
+        
+            /* ========== Algebra · Graduate-level ========== */
+            {
+              id: 'A-G-1',
+              difficulty: 'Graduate-level',
+              difficultyKey: 'grad',
+              modality: 'text',
+              subject: 'Algebra',
+              question: `Find all solutions α with 0° < α < 90° to the equation:
+        1 + √3·tan(60° − α) = 1 / sin(α).`,
+              answerSolution: `Multiply both sides by cos(60° − α).
+        Rewrite constants: 1 = 2·sin(30°), √3 = 2·cos(30°).
+        
+        Then:
+        2 [ sin(30°)·cos(60° − α) + cos(30°)·sin(60° − α) ]
+        = cos(60° − α) / sin(α).
+        
+        Using the sine addition formula:
+        2·sin(30° + 60° − α) = 2·cos(α).
+        
+        Multiply both sides by sin(α):
+        2·sin(α)·cos(α) = cos(60° − α).
+        
+        Thus:
+        sin(2α) = sin(α + 30°).
+        
+        So either:
+        2α = α + 30°  → α = 30°
+        or
+        2α + α + 30° = 180° → 3α = 150° → α = 50°.`,
+              groundTruth: 'α = 30°, 50°'
+            },
+        
+            /* ========== Algebra · Undergraduate-level ========== */
+            {
+              id: 'A-U-1',
+              difficulty: 'Undergraduate-level',
+              difficultyKey: 'undergrad',
+              modality: 'text',
+              subject: 'Algebra',
+              question: `Diagonalize A, i.e., find A = P D P⁻¹ where P is invertible and D is diagonal.`,
+              answerSolution: `Using previously computed eigenvectors:
+        
+        P =
+        [ 1   0  −1 ]
+        [ 5   1   1 ]
+        [ 2   0   0 ]
+        
+        D =
+        [ 5   0   0 ]
+        [ 0   3   0 ]
+        [ 0   0   1 ]
+        
+        Thus A = P D P⁻¹.`,
+              groundTruth: 'P and D as above'
+            }
+        
+            /* ========== Multimodal ========== */
+            {
+              id: 'GM1',
+              difficulty: 'grad',
+              modality: 'multi',           // multimodal
+              subject: 'Geometry / Optimization',
+              question: 'Graduate multimodal problem: (fill your question here).',
+              answerSolution: 'Solution text here (optional).',
+              groundTruth: '',
+              images: [
+                'website_assets/grad-multi-1-orig.png',
+                'website_assets/grad-multi-1-draw.png',
+                'website_assets/grad-multi-1-photo.png'
+              ]
+            },
+            {
+              id: 'UM1',
+              difficulty: 'undergrad',
+              modality: 'multi',
+              subject: 'Geometry',
+              question: 'Undergraduate multimodal problem: (fill your question here).',
+              answerSolution: '',
+              groundTruth: '',
+              images: [
+                'website_assets/ug-multi-1-orig.png',
+                'website_assets/ug-multi-1-draw.png',
+                'website_assets/ug-multi-1-photo.png'
+              ]
+            }
+          ];
+        -->
+    
         function loadRandomTask() {
             const task = tasks[Math.floor(Math.random() * tasks.length)];
             const display = document.getElementById('taskDisplay');

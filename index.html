@@ -292,6 +292,24 @@
             letter-spacing: 0.5px;
         }
 
+        /* 只针对 comparison-section 里的表格做样式，不影响别的表 */
+        .comparison-table table {
+            table-layout: fixed;   /* 让每一列宽度均分 */
+            width: 100%;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            text-align: center;    /* 默认居中 */
+        }
+        
+        /* 第一列的基准名字还是左对齐好看一点 */
+        .comparison-table th:first-child,
+        .comparison-table td:first-child {
+            text-align: left;
+        }
+
+        
         tr:hover {
             background: #f9fafb;
         }

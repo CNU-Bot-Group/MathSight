@@ -842,6 +842,93 @@
           line-height: 1.7;
         }
 
+        /* ==== Main Results Section ==== */
+        .main-results {
+          background: #f8fafc;
+          padding: 60px 0 70px;
+        }
+        
+        .main-results h2 {
+          text-align: center;
+          margin-bottom: 10px;
+        }
+        
+        .main-results .section-intro {
+          max-width: 720px;
+          margin: 0 auto 32px;
+          text-align: center;
+        }
+        
+        /* 左右布局：左侧文字，右侧图片网格 */
+        .results-layout {
+          display: grid;
+          grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.6fr);
+          gap: 32px;
+          align-items: flex-start;
+        }
+        
+        @media (max-width: 900px) {
+          .results-layout {
+            grid-template-columns: 1fr;
+          }
+        }
+        
+        /* 左侧 highlights */
+        .results-highlights h3 {
+          margin-bottom: 12px;
+          font-size: 1.1rem;
+        }
+        
+        .results-highlights ul {
+          margin: 0 0 14px;
+          padding-left: 18px;
+        }
+        
+        .results-highlights li {
+          margin-bottom: 8px;
+          line-height: 1.6;
+          color: #0f172a;
+        }
+        
+        .results-note {
+          font-size: 0.9em;
+          color: #64748b;
+        }
+        
+        /* 右侧 2×2 图片网格 */
+        .results-figures {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px;
+        }
+        
+        @media (max-width: 900px) {
+          .results-figures {
+            grid-template-columns: 1fr;
+          }
+        }
+        
+        .results-figure-card {
+          background: #ffffff;
+          border-radius: 14px;
+          box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+          padding: 10px 12px 12px;
+        }
+        
+        .results-figure-card img {
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 10px;
+        }
+        
+        .results-figure-card figcaption {
+          margin-top: 6px;
+          font-size: 0.85em;
+          color: #475569;
+          text-align: center;
+        }
 
         
     </style>
@@ -1022,7 +1109,7 @@
                     <span class="stat-label">Multimodal items</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">631*3</span>
+                    <span class="stat-number">632*3</span>
                     <span class="stat-label">Images</span>
                 </div>
                 <div class="stat-card">
@@ -1041,6 +1128,81 @@
         </div>
     </section>
 
+    <!-- Main Results -->
+    <section class="main-results" id="results">
+      <div class="container">
+        <h2>Main Results</h2>
+        <p class="section-intro">
+          We highlight key evaluation results of state-of-the-art Vision-Language Models (VLMs)
+          and text-only LMs on the MathSight benchmark.
+        </p>
+    
+        <div class="results-layout">
+          <!-- 左侧：几条一句话总结 -->
+          <div class="results-highlights">
+            <h3>Key Findings</h3>
+            <ul>
+              <li><strong>Strong text-only LMs can match or surpass VLMs</strong> on MathSight,
+                  indicating heavy reliance on linguistic priors.</li>
+              <li><strong>Visual robustness is limited</strong> — performance varies across
+                  original, hand-drawn, and photo-captured variants.</li>
+              <li><strong>Image size and visual style both matter</strong>, but the benefit of
+                  visual input shrinks as problem difficulty increases.</li>
+            </ul>
+            <p class="results-note">
+              The figures on the right summarize overall scores, image-size sensitivity, 
+              multimodal vs text-only comparison, and answer consistency patterns.
+            </p>
+          </div>
+    
+          <!-- 右侧：4 张结果图 -->
+          <div class="results-figures">
+            <!-- (1) Table 2: overall VLM results -->
+            <figure class="results-figure-card">
+              <img src="website_assets/table-2.png"
+                   alt="Overall evaluation results of VLMs on the MathSight benchmark">
+              <figcaption>
+                Overall accuracy of closed-source and open-source VLMs on MathSight under
+                original (V.Orig), hand-drawn (V.Draw), and photo-captured (V.Photo) variants.
+              </figcaption>
+            </figure>
+    
+            <!-- (2) Figure 3: image size -->
+            <figure class="results-figure-card">
+              <img src="website_assets/Figure3.png"
+                   alt="Evaluation results of VLMs on images of different sizes">
+              <figcaption>
+                Accuracy of VLMs on MathSight for different image resolutions, 
+                showing sensitivity to visual scale across variants.
+              </figcaption>
+            </figure>
+    
+            <!-- (3) Figure 4: text-only vs multimodal -->
+            <figure class="results-figure-card">
+              <img src="website_assets/Figure4.png"
+                   alt="Comparison between text-only and different multimodal inputs">
+              <figcaption>
+                Comparison between text-only (V.w/o image) and multimodal inputs for Qwen3 models.
+                Qwen3-VL without image input even surpasses GPT-5 on MathSight.
+              </figcaption>
+            </figure>
+    
+            <!-- (4) Table 4: answer pattern statistics -->
+            <figure class="results-figure-card">
+              <img src="website_assets/Table-4.png"
+                   alt="Answer consistency patterns across three visual variants">
+              <figcaption>
+                Distribution of answer-consistency patterns across original (A), photo-captured (B),
+                and hand-drawn (C) variants for GPT-5 and Qwen3-VL-235B-A22B.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    
     <!-- Comparison Table (optional, placeholder) -->
     <section class="comparison-section">
         <div class="container">

@@ -930,6 +930,18 @@
           text-align: center;
         }
 
+        /* 让某些结果图横跨两列，例如 Table 2、image-size 图 */
+        .results-figure-wide {
+          grid-column: span 2;
+        }
+        
+        @media (max-width: 900px) {
+          /* 小屏一列就不用横跨两列了 */
+          .results-figure-wide {
+            grid-column: span 1;
+          }
+        }
+
         
     </style>
 </head>
@@ -1157,46 +1169,57 @@
     
           <!-- 右侧：4 张结果图 -->
           <div class="results-figures">
-            <!-- (1) Table 2: overall VLM results -->
-            <figure class="results-figure-card">
-              <img src="website_assets/table-2.png"
-                   alt="Overall evaluation results of VLMs on the MathSight benchmark">
-              <figcaption>
-                Overall accuracy of closed-source and open-source VLMs on MathSight under
-                original (V.Orig), hand-drawn (V.Draw), and photo-captured (V.Photo) variants.
-              </figcaption>
-            </figure>
-    
-            <!-- (2) Figure 3: image size -->
-            <figure class="results-figure-card">
-              <img src="website_assets/Figure3.png"
-                   alt="Evaluation results of VLMs on images of different sizes">
-              <figcaption>
-                Accuracy of VLMs on MathSight for different image resolutions, 
-                showing sensitivity to visual scale across variants.
-              </figcaption>
-            </figure>
-    
-            <!-- (3) Figure 4: text-only vs multimodal -->
-            <figure class="results-figure-card">
-              <img src="website_assets/Figure4.png"
-                   alt="Comparison between text-only and different multimodal inputs">
-              <figcaption>
-                Comparison between text-only (V.w/o image) and multimodal inputs for Qwen3 models.
-                Qwen3-VL without image input even surpasses GPT-5 on MathSight.
-              </figcaption>
-            </figure>
-    
-            <!-- (4) Table 4: answer pattern statistics -->
-            <figure class="results-figure-card">
-              <img src="website_assets/Table4.png"
-                   alt="Answer consistency patterns across three visual variants">
-              <figcaption>
-                Distribution of answer-consistency patterns across original (A), photo-captured (B),
-                and hand-drawn (C) variants for GPT-5 and Qwen3-VL-235B-A22B.
-              </figcaption>
-            </figure>
-          </div>
+          <!-- (1) Table 2: overall VLM results —— 仍然横跨两列 -->
+          <figure class="results-figure-card results-figure-wide">
+            <img src="website_assets/table-2.png"
+                 alt="Overall evaluation results of VLMs on the MathSight benchmark">
+            <figcaption>
+              Overall accuracy of closed-source and open-source VLMs on MathSight under
+              original (V.Orig), hand-drawn (V.Draw), and photo-captured (V.Photo) variants.
+            </figcaption>
+          </figure>
+        
+          <!-- (2)  Figure 5：group_CV boxplot -->
+          <figure class="results-figure-card">
+            <img src="website_assets/Figure5.png"
+                 alt="Box plots of group coefficient of variation across GPT-4o variants">
+            <figcaption>
+              Box plots of group coefficient of variation (group_CV) for GPT-4o variants.
+              Each box covers the central 95% region, the horizontal line marks the median
+              group_CV, and points outside indicate rare outliers.
+            </figcaption>
+          </figure>
+        
+          <!-- (3) Figure 4：text-only vs multimodal 对比 -->
+          <figure class="results-figure-card">
+            <img src="website_assets/Figure4.png"
+                 alt="Comparison between text-only and different multimodal inputs">
+            <figcaption>
+              Comparison between text-only (V.w/o image) and multimodal inputs for Qwen3 models.
+              Qwen3-VL without image input even surpasses GPT-5 on MathSight.
+            </figcaption>
+          </figure>
+        
+          <!-- (4) Table 4：答案组合分布 -->
+          <figure class="results-figure-card">
+            <img src="website_assets/Table4.png"
+                 alt="Answer consistency patterns across three visual variants">
+            <figcaption>
+              Distribution of answer-consistency patterns across original (A), photo-captured (B),
+              and hand-drawn (C) variants for GPT-5 and Qwen3-VL-235B-A22B.
+            </figcaption>
+          </figure>
+        
+          <!-- (5) 原来的 Figure 3：image-size 柱状图，单独一行横跨两列 -->
+          <figure class="results-figure-card results-figure-wide">
+            <img src="website_assets/Figure3.png"
+                 alt="Evaluation results of VLMs on images of different sizes">
+            <figcaption>
+              Accuracy of VLMs on MathSight for different image sizes, showing how resolution
+              affects performance under different visual variants.
+            </figcaption>
+          </figure>
+        </div>
         </div>
       </div>
     </section>

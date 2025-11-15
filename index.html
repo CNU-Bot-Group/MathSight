@@ -895,52 +895,36 @@
           color: #64748b;
         }
         
-        /* 右侧 2×2 图片网格 */
-        .results-figures {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 16px;
+        /* Main Results 图像区域右侧整体容器：可有可无，仅占位 */
+        .results-visual {
+          margin-top: 12px;
         }
         
+        /* 上面 4 张图：大屏固定 2 列，变成 2×2 网格 */
+        .results-figures {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(260px, 1fr));
+          gap: 24px;
+          align-items: stretch;
+        }
+        
+        /* 小屏幕时自动变成一列垂直排布 */
         @media (max-width: 900px) {
           .results-figures {
             grid-template-columns: 1fr;
           }
         }
         
-        .results-figure-card {
-          background: #ffffff;
-          border-radius: 14px;
-          box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-          padding: 10px 12px 12px;
+        /* 下面 Image size 图：单独一列、居中 */
+        .results-figures-single {
+          margin-top: 28px;
         }
         
-        .results-figure-card img {
-          width: 100%;
-          max-width: 100%;
-          height: auto;
-          display: block;
-          border-radius: 10px;
-        }
-        
-        .results-figure-card figcaption {
-          margin-top: 6px;
-          font-size: 0.85em;
-          color: #475569;
-          text-align: center;
+        .results-figures-single .results-figure-card {
+          max-width: 960px;   /* 可以根据你图片宽度调小或调大 */
+          margin: 0 auto;     /* 水平居中 */
         }
 
-        /* 让某些结果图横跨两列，例如 Table 2、image-size 图 */
-        .results-figure-wide {
-          grid-column: span 2;
-        }
-        
-        @media (max-width: 900px) {
-          /* 小屏一列就不用横跨两列了 */
-          .results-figure-wide {
-            grid-column: span 1;
-          }
-        }
 
         
     </style>
@@ -1168,58 +1152,68 @@
           </div>
     
           <!-- 右侧：4 张结果图 -->
+          <div class="results-visual">
+          <!-- 4 张图：2 × 2 网格 -->
           <div class="results-figures">
-          <!-- (1) Table 2: overall VLM results —— 仍然横跨两列 -->
-          <figure class="results-figure-card results-figure-wide">
-            <img src="website_assets/table-2.png"
-                 alt="Overall evaluation results of VLMs on the MathSight benchmark">
-            <figcaption>
-              Overall accuracy of closed-source and open-source VLMs on MathSight under
-              original (V.Orig), hand-drawn (V.Draw), and photo-captured (V.Photo) variants.
-            </figcaption>
-          </figure>
+            <!-- (1) Table 2：整体结果 -->
+            <figure class="results-figure-card">
+              <img src="website_assets/table-2.png"
+                   alt="Overall evaluation results of Vision-Language Models on the MathSight benchmark.">
+              <figcaption>
+                Overall accuracy of closed-source and open-source VLMs on MathSight under
+                original (V.Orig), hand-drawn (V.Draw), and photo-captured (V.Photo) visual variants.
+              </figcaption>
+            </figure>
         
-          <!-- (2)  Figure 5：group_CV boxplot -->
-          <figure class="results-figure-card">
-            <img src="website_assets/Figure5.png"
-                 alt="Box plots of group coefficient of variation across GPT-4o variants">
-            <figcaption>
-              Box plots of group coefficient of variation (group_CV) for GPT-4o variants.
-              Each box covers the central 95% region, the horizontal line marks the median
-              group_CV, and points outside indicate rare outliers.
-            </figcaption>
-          </figure>
+            <!-- (2) group_CV boxplot -->
+            <figure class="results-figure-card">
+              <img src="website_assets/Fiugre5.png"
+                   alt="Box plots of group coefficient of variation for GPT-4o variants.">
+              <figcaption>
+                Box plots of group coefficient of variation (group_CV) for GPT-4o variants.
+                Each box covers the central 95% region of group_CV values, the horizontal line
+                marks the median group_CV, and points outside indicate rare outliers.
+              </figcaption>
+            </figure>
         
-          <!-- (3) Figure 4：text-only vs multimodal 对比 -->
-          <figure class="results-figure-card">
-            <img src="website_assets/Figure4.png"
-                 alt="Comparison between text-only and different multimodal inputs">
-            <figcaption>
-              Comparison between text-only (V.w/o image) and multimodal inputs for Qwen3 models.
-              Qwen3-VL without image input even surpasses GPT-5 on MathSight.
-            </figcaption>
-          </figure>
+            <!-- (3) text-only vs multimodal 比较 -->
+            <figure class="results-figure-card">
+              <img src="website_assets/Figure4.png"
+                   alt="Comparison between text-only and different multimodal inputs.">
+              <figcaption>
+                Comparison between text-only (V.w/o image) and multimodal inputs for Qwen3 models.
+                Qwen3-VL without image input even surpasses GPT-5 on MathSight, highlighting
+                the strong power of language-only reasoning.
+              </figcaption>
+            </figure>
         
-          <!-- (4) Table 4：答案组合分布 -->
-          <figure class="results-figure-card">
-            <img src="website_assets/Table4.png"
-                 alt="Answer consistency patterns across three visual variants">
-            <figcaption>
-              Distribution of answer-consistency patterns across original (A), photo-captured (B),
-              and hand-drawn (C) variants for GPT-5 and Qwen3-VL-235B-A22B.
-            </figcaption>
-          </figure>
+            <!-- (4) Table 4：答案组合分布 -->
+            <figure class="results-figure-card">
+              <img src="website_assets/Table4.png"
+                   alt="Answer-consistency patterns across three visual variants.">
+              <figcaption>
+                Distribution of answer-consistency patterns across original (A),
+                photo-captured (B), and hand-drawn (C) variants for GPT-5 and Qwen3-VL-235B-A22B,
+                revealing how visual style changes affect prediction agreement.
+              </figcaption>
+            </figure>
+          </div>
         
-          <!-- (5) 原来的 Figure 3：image-size 柱状图，单独一行横跨两列 -->
-          <figure class="results-figure-card results-figure-wide">
-            <img src="website_assets/Figure3.png"
-                 alt="Evaluation results of VLMs on images of different sizes">
-            <figcaption>
-              Accuracy of VLMs on MathSight for different image sizes, showing how resolution
-              affects performance under different visual variants.
-            </figcaption>
-          </figure>
+          <!-- Image size 图：单独一列（单独一行） -->
+          <div class="results-figures-single">
+            <figure class="results-figure-card">
+              <img src="website_assets/Figure3.png"
+                   alt="Evaluation results of VLMs on images of different sizes.">
+              <figcaption>
+                Evaluation results of VLMs on images of different sizes. Shrinking image
+                resolution only mildly degrades accuracy for most models, suggesting that
+                visual information is often under-utilized compared with text.
+              </figcaption>
+            </figure>
+          </div>
         </div>
+
+            
         </div>
       </div>
     </section>

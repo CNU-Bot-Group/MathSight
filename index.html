@@ -780,7 +780,68 @@
             line-height: 1.6;
         }
         
+        /* ==== Problem Explorer: multimodal images ==== */
+        .problem-images {
+          margin-top: 10px;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 12px;
+        }
         
+        .problem-image-card {
+          background: #e5edf7;
+          border-radius: 10px;
+          padding: 8px 10px 10px;
+        }
+        
+        .problem-image-card img {
+          width: 100%;
+          display: block;
+          border-radius: 6px;
+          background: #0f172a;
+        }
+        
+        .problem-image-caption {
+          margin-top: 4px;
+          font-size: 0.8em;
+          color: #475569;
+          text-align: center;
+        }
+        
+        /* 折叠解答 */
+        .solution-details {
+          margin-top: 8px;
+        }
+        
+        .solution-details summary {
+          font-size: 0.9em;
+          color: #2563eb;
+          cursor: pointer;
+          list-style: none;
+        }
+        
+        .solution-details summary::-webkit-details-marker {
+          display: none;
+        }
+        
+        .solution-details summary::before {
+          content: "▸ ";
+          display: inline-block;
+          transition: transform 0.15s ease-out;
+        }
+        
+        .solution-details[open] summary::before {
+          content: "▾ ";
+        }
+        
+        .problem-solution-body {
+          margin-top: 6px;
+          white-space: pre-wrap;
+          font-size: 0.95em;
+          color: #1e293b;
+          line-height: 1.7;
+        }
+
 
         
     </style>
@@ -1109,7 +1170,7 @@
           <div class="container">
             <h2>Problem Explorer</h2>
             <p class="section-intro">
-              Browse a small subset of MathSight text-only problems by difficulty and subject.
+              Browse a small subset of MathSight problems by difficulty, subject, and modality.
             </p>
         
             <div class="explorer-controls">
@@ -1127,8 +1188,7 @@
                 <select id="modality-select">
                   <option value="any">Any</option>
                   <option value="text">Text-only</option>
-                  <!-- 将来你加 multimodal 再启用 -->
-                  <!-- <option value="multi">Multimodal</option> -->
+                  <option value="multi">Multimodal</option>
                 </select>
               </label>
         
@@ -1143,15 +1203,15 @@
           </div>
         </section>
         
-        <!-- 把 JS 放在这里，然后再是 </body> -->
         <script>
-          // ==== 4 道 text-only 示例题 ====
+          // ===================== Problems =====================
+        
           const problems = [
-            /* === Calculus · Graduate-level === */
+            /* ---------- 4 个 text-only 示例（之前那 4 题） ---------- */
             {
               id: 'C-G-1',
               difficulty: 'Graduate-level',
-              difficultyKey: 'grad',      // 用于下拉筛选
+              difficultyKey: 'grad',
               modality: 'text',
               subject: 'Calculus',
               question: `Use the method of Lagrange multipliers to find the maximum value of
@@ -1186,8 +1246,6 @@
         Maximum value = 2, attained at (±√2, 1).`,
               groundTruth: '2'
             },
-        
-            /* === Calculus · Undergraduate-level === */
             {
               id: 'C-U-1',
               difficulty: 'Undergraduate-level',
@@ -1206,8 +1264,6 @@
           Eigenvectors: all (s, −(1/2)s), s ≠ 0.`,
               groundTruth: 'eigenvalues: 1 and −1'
             },
-        
-            /* === Algebra · Graduate-level === */
             {
               id: 'A-G-1',
               difficulty: 'Graduate-level',
@@ -1238,8 +1294,6 @@
         2α + α + 30° = 180° → 3α = 150° → α = 50°.`,
               groundTruth: 'α = 30°, 50°'
             },
-        
-            /* === Algebra · Undergraduate-level === */
             {
               id: 'A-U-1',
               difficulty: 'Undergraduate-level',
@@ -1261,16 +1315,93 @@
         
         Thus A = P D P⁻¹.`,
               groundTruth: 'P and D as above'
+            },
+        
+            /* ---------- 新增 2 个 Multimodal 题 ---------- */
+        
+            // 1) 参数化球面匹配图像
+            {
+              id: 'M-1',
+              difficulty: 'Undergraduate-level',
+              difficultyKey: 'undergrad',
+              modality: 'multi',
+              subject: 'Calculus',
+              question: `Match the parameterized surface
+        r(u, v) = ⟨cos(u)·sin(v), sin(u)·sin(v), cos(v)⟩
+        with the corresponding picture and implicit surface equation.`,
+              answerSolution: `This parameterization is the standard spherical coordinates
+        with radius 1, so the image is the unit sphere and the
+        implicit surface equation is
+        
+        x² + y² + z² = 1.
+        
+        Therefore the correct matching is C → III → x² + y² + z² = 1.`,
+              groundTruth: 'C → III, implicit surface: x² + y² + z² = 1',
+              images: [
+                'website_assets/M1-Orig.png',   // 原始题目图
+                'website_assets/M1-hand.png',      // 手绘版
+                'website_assets/M1-photo.png'       // 拍照版
+              ],
+              imageCaptions: [
+                'Original exam diagram (matching task)',
+                'Hand-drawn variant of the matching diagram',
+                'Photo-captured version on the board'
+              ]
+            },
+        
+            // 2) 预算直线图像题
+            {
+              id: 'M-2',
+              difficulty: 'Undergraduate-level',
+              difficultyKey: 'undergrad',
+              modality: 'multi',
+              subject: 'Algebra',
+              question: `We have $24 to spend on vegetables and fruit.
+        A pound of vegetables costs $1 and a pound of fruit costs $2.
+        The number of pounds of vegetables we can afford, y, is a function
+        of the number of pounds of fruit we buy, x.
+        
+        On the axes:
+        • Graph your equation.
+        • Label each axis with the variable name and units.
+        • Label the coordinates at the vertical and horizontal intercepts.
+        • Draw a dot at the point corresponding to a purchase of 2 pounds of fruit and label its coordinates.`,
+              answerSolution: `Total cost constraint: 1·y + 2·x = 24  ⇒  y = −2x + 24.
+        
+        So the graph is a straight line with:
+        - y-intercept (0, 24)
+        - x-intercept (12, 0)
+        Axes labels:
+        - x-axis: "pounds of fruit"
+        - y-axis: "pounds of vegetables"
+        
+        The point for 2 pounds of fruit is:
+        x = 2 ⇒ y = −2·2 + 24 = 20, so the marked point is (2, 20).`,
+              groundTruth: `Graph of y = −2x + 24 with x-axis "pounds of fruit",
+        y-axis "pounds of vegetables", intercepts (0, 24) and (12, 0),
+        and point (2, 20) labeled.`,
+              images: [
+                'website_assets/M2-Orig.png',
+                'website_assets/M2-hand.png',
+                'website_assets/M2-photo.png'
+              ],
+              imageCaptions: [
+                'Original exam-style budget line graph',
+                'Hand-drawn sketch of the same line',
+                'Photo-captured version on paper/board'
+              ]
             }
           ];
+        
+          // ===================== Rendering logic =====================
         
           function pickRandom(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
           }
         
           document.getElementById('random-problem-btn').addEventListener('click', () => {
-            const diff = document.getElementById('difficulty-select').value;   // 'any' / 'undergrad' / 'grad'
-            const mod  = document.getElementById('modality-select').value;     // 'any' / 'text'
+            const diff = document.getElementById('difficulty-select').value;
+            const mod  = document.getElementById('modality-select').value;
         
             let filtered = problems.slice();
         
@@ -1291,19 +1422,47 @@
             const p = pickRandom(filtered);
             const meta = `${p.difficulty} · ${p.subject}`;
         
-            disp.innerHTML = `
+            // 共用的 Question + Ground truth
+            let html = `
               <div class="problem-card">
                 <div class="problem-meta">${meta}</div>
-                <p class="problem-question">${p.question}</p>
-                ${
-                  p.groundTruth
-                    ? `<p class="problem-answer"><strong>Answer:</strong> ${p.groundTruth}</p>`
-                    : ''
-                }
-              </div>
+                <p class="problem-question"><strong>Question:</strong> ${p.question}</p>
+                ${p.groundTruth ? `<p class="problem-answer"><strong>Ground truth:</strong> ${p.groundTruth}</p>` : ''}
             `;
+        
+            // 如果是 multimodal，就把三张图展示出来
+            if (p.modality === 'multi' && Array.isArray(p.images)) {
+              html += `<div class="problem-images">`;
+              p.images.forEach((img, idx) => {
+                const cap = p.imageCaptions && p.imageCaptions[idx] ? p.imageCaptions[idx] : '';
+                html += `
+                  <div class="problem-image-card">
+                    <img src="${img}" alt="Problem image ${idx + 1}">
+                    ${cap ? `<div class="problem-image-caption">${cap}</div>` : ''}
+                  </div>
+                `;
+              });
+              html += `</div>`;
+            }
+        
+            // 折叠显示 Answer / solution
+            if (p.answerSolution && p.answerSolution.trim()) {
+              html += `
+                <details class="solution-details">
+                  <summary>Show full solution</summary>
+                  <div class="problem-solution-body">
+        ${p.answerSolution}
+                  </div>
+                </details>
+              `;
+            }
+        
+            html += `</div>`; // 结束 problem-card
+        
+            disp.innerHTML = html;
           });
         </script>
+
 
     
     

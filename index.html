@@ -885,29 +885,6 @@
     <!-- Why MathSight -->
     <section class="intro-section">
         <div class="container">
-
-            <!--   以下被注释
-            <h2>Overview</h2>
-            <p class="section-intro">
-                MathSight focuses on the ability of models to jointly understand mathematical structures and visual layouts,
-                including plots, geometric drawings, annotated diagrams, and typed expressions embedded in images.
-            </p>
-            
-            <div class="generalization-types">
-                <div class="gen-card">
-                    <h4>Text-only vs Multimodal</h4>
-                    <p>Evaluate both pure symbolic reasoning based on LaTeX-style statements and visually grounded reasoning that requires interpreting equations, axes, and diagrams in images.</p>
-                </div>
-                <div class="gen-card">
-                    <h4>Across Subjects</h4>
-                    <p>Problems span calculus, algebra, geometry, probability & statistics, and other undergraduate-level topics, enabling subject-wise comparison and analysis.</p>
-                </div>
-                <div class="gen-card">
-                    <h4>Difficulty Levels</h4>
-                    <p>Each problem is annotated with difficulty labels (e.g., easy / medium / hard, undergraduate / graduate), supporting curriculum-style evaluation and scaling studies.</p>
-                </div>
-            </div>
-            -->
             <h2>Why MathSight?</h2>
 
             <p class="section-intro">
@@ -926,99 +903,8 @@
               <img src="website_assets/Motivation behind MathSight.png" alt="MathSight motivation example" class="motivation-img">
               <p class="figure-caption">Motivation behind MathSight: existing benchmarks vs. our design with richer visual variants and harder problems.</p>
             </div>
-
-            <!--
-            <ul>
-              <li><strong>Visual robustness gap:</strong> Subtle changes in visual style (e.g., hand-drawn or photo-captured diagrams) can flip previously correct answers into wrong ones, revealing fragile visual understanding.</li>
-              <li><strong>Missing visual variants:</strong> Previous benchmarks typically offer only one image per problem and do not support controlled comparisons across different visual conditions.</li>
-              <li><strong>Text-only confound:</strong> Many problems can be partially solved from text alone, making it hard to measure the true value of visual input.</li>
-            </ul>
-            <p>
-              MathSight is designed to directly address these issues by providing controlled visual variants and a matched text-only setting for university-level mathematical reasoning.
-            </p>
-
-            
-            <h3>Main Contributions</h3>
-            <ul>
-              <li>A university-level multimodal benchmark with multiple visual variants and a matched text-only track.:contentReference[oaicite:4]{index=4}</li>
-              <li>A systematic analysis of visual sensitivity in state-of-the-art VLMs under original, hand-drawn, photo-captured,
-                  and no-image conditions.:contentReference[oaicite:5]{index=5}</li>
-              <li>Empirical evidence that strong models often match or surpass multimodal performance using text only,
-                  highlighting a gap between visual understanding and language-driven reasoning.:contentReference[oaicite:6]{index=6}</li>
-            </ul>
-
-            <h2>Dataset Overview</h2>
-            <p>
-            MathSight contains <strong>2048</strong> university-level math problems, including
-            <strong>1387</strong> text-only items and <strong>661</strong> multimodal items paired with diagrams.
-            Among the multimodal problems, <strong>603</strong> are at the graduate level, making MathSight
-            one of the most challenging benchmarks in this space.:contentReference[oaicite:11]{index=11}
-            </p>
-            
-            <p>
-            Problems are drawn from six core mathematical domains: Calculus, Algebra, Analysis,
-            Probability &amp; Statistics, Discrete Mathematics, and Applied Mathematics, covering both
-            foundational and advanced topics such as logic and topology.:contentReference[oaicite:12]{index=12}
-            </p>
-            
-            <p>
-            In addition, MathSight includes <strong>30</strong> proving problems (29 graduate-level),
-            which cannot be evaluated by simple exact-match answers and are used to probe
-            logical consistency in long-form reasoning.:contentReference[oaicite:13]{index=13}
-            </p>
-            -->
-            
-            
         </div>
     </section>
-
-    <!-- Task Examples 
-    <section class="task-examples">
-        <div class="container">
-            <h2>Example Problems</h2>
-            <p class="section-intro">A few representative MathSight examples illustrating visually grounded mathematical reasoning.</p>
-            
-            <div class="task-grid">
-                <div class="task-card">
-                    <div class="label">(a) Function Plot Interpretation</div>
-                    <div class="description">
-                        Given a velocity–time plot of a particle, determine on which intervals the acceleration is negative and compute the total distance traveled over the first 10 seconds.
-                    </div>
-                </div>
-                <div class="task-card">
-                    <div class="label">(b) Geometry with Diagram</div>
-                    <div class="description">
-                        A triangle with annotated side lengths and angles is shown. Using the diagram, find the length of segment AD and the area of the shaded region.
-                    </div>
-                </div>
-                <div class="task-card">
-                    <div class="label">(c) Piecewise Graph Reasoning</div>
-                    <div class="description">
-                        From a graph of a piecewise-defined function, determine all points of discontinuity, classify each as removable or non-removable, and compute the corresponding one-sided limits.
-                    </div>
-                </div>
-                <div class="task-card">
-                    <div class="label">(d) Probability Table</div>
-                    <div class="description">
-                        A contingency table for two events is shown in an image. Compute the conditional probability, odds ratio, and decide whether the events can be treated as independent.
-                    </div>
-                </div>
-                <div class="task-card">
-                    <div class="label">(e) Algebra on the Blackboard</div>
-                    <div class="description">
-                        A photo of a blackboard shows a partially written system of equations. Recover the full system and solve for the unknown vector, explaining each algebraic transformation.
-                    </div>
-                </div>
-                <div class="task-card">
-                    <div class="label">(f) Multi-step Word Problem</div>
-                    <div class="description">
-                        A word problem is paired with a supporting diagram (number line, bar chart, or schematic). Derive the correct symbolic formulation and compute the final numeric answer.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
 
     <section class="task-examples">
       <div class="container">
@@ -1216,54 +1102,7 @@
             </div>
         </div>
     </section>
-
-    <!-- Data Visualization -->
-    <section class="data-explorer">
-        <div class="container">
-            <h2>Data Overview</h2>
-            <div class="visualization">
-                <div class="chart-container">
-                    <div class="chart">
-                        <h4>Subject Distribution (Example)</h4>
-                        <!-- TODO: 宽度可以根据真实比例微调 -->
-                        <div class="bar" style="width: 90%;">
-                            <span class="bar-label">Calculus (e.g., 30%)</span>
-                        </div>
-                        <div class="bar" style="width: 75%;">
-                            <span class="bar-label">Algebra (e.g., 25%)</span>
-                        </div>
-                        <div class="bar" style="width: 60%;">
-                            <span class="bar-label">Probability & Statistics</span>
-                        </div>
-                        <div class="bar" style="width: 50%;">
-                            <span class="bar-label">Geometry & Topology</span>
-                        </div>
-                        <div class="bar" style="width: 40%;">
-                            <span class="bar-label">Discrete / Other</span>
-                        </div>
-                    </div>
-                    <div class="chart">
-                        <h4>Difficulty Distribution (Example)</h4>
-                        <div class="bar" style="width: 80%;">
-                            <span class="bar-label">Easy</span>
-                        </div>
-                        <div class="bar" style="width: 65%;">
-                            <span class="bar-label">Medium</span>
-                        </div>
-                        <div class="bar" style="width: 45%;">
-                            <span class="bar-label">Hard</span>
-                        </div>
-                        <div class="bar" style="width: 30%;">
-                            <span class="bar-label">Graduate-level</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     
-
     <!-- 上面是别的 section，比如 Comparison with Existing Benchmarks -->
 
         <section class="data-explorer">

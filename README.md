@@ -3,7 +3,7 @@
 > **MathSight: A Benchmark Exploring Have Vision-Language Models Really Seen in University-Level Mathematical Reasoning?**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Paper](https://img.shields.io/badge/arXiv-XXXX.XXXXX-B31B1B.svg)](https://arxiv.org/abs/2511.23112)
+[![Paper](https://img.shields.io/badge/arXiv-2511.23112-B31B1B.svg)](https://arxiv.org/abs/2511.23112)
 [![Website](https://img.shields.io/badge/Website-MathSight-black.svg)](https://cnu-bot-group.github.io/MathSight/)
 
 ---

@@ -3,7 +3,7 @@
 > **MathSight: A Benchmark Exploring Have Vision-Language Models Really Seen in University-Level Mathematical Reasoning?**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Paper](https://img.shields.io/badge/arXiv-XXXX.XXXXX-B31B1B.svg)](https://arxiv.org/abs/XXXX.XXXXX)
+[![Paper](https://img.shields.io/badge/arXiv-XXXX.XXXXX-B31B1B.svg)](https://arxiv.org/abs/2511.23112)
 [![Website](https://img.shields.io/badge/Website-MathSight-black.svg)](https://cnu-bot-group.github.io/MathSight/)
 
 ---
@@ -53,7 +53,7 @@ Most existing multimodal math benchmarks report high overall accuracy, but they 
 
 - **Total problems:** 2,048  
 - **Multimodal items:** 661  
-- **Images:** 632 × 3 variants (original / hand-drawn / photo-captured)  
+- **Images:** 632 × 3 variants (original / hand / photo)  
 - **Subjects:** 6 core areas of mathematics  
 - **Question types:** 1,713 non-proof vs. 335 proof problems  
 - **Difficulty:** 1,668 graduate-level vs. 380 undergraduate-level
@@ -66,10 +66,10 @@ We will gradually release the MathSight benchmark in JSONL format.
 
 All dataset files will be stored under the `data/` directory:
 
-- `data/mathsight_text_only.jsonl`  
+- `Dataset/final-language-1387-with-subject-withfixed-new-proof.jsonl`  
   Text-only version of the problems (no image paths), for pure LLM evaluation.
 
-- `data/mathsight_multimodal.jsonl`  
+- `Dataset/661/final-vision-661-new.jsonl`  
   Multimodal version including `image_path` fields and visual variants.
 
 Each JSONL line corresponds to one problem and follows the schema:

@@ -3,8 +3,24 @@
 > **MathSight: A Benchmark Exploring Have Vision-Language Models Really Seen in University-Level Mathematical Reasoning?**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![ACL 2026](https://img.shields.io/badge/ACL%202026-Long%20Paper-4B8BBE.svg)](https://aclanthology.org/2026.acl-long.2198/)
+[![ACL Anthology](https://img.shields.io/badge/ACL%20Anthology-2026.acl--long.2198-orange.svg)](https://aclanthology.org/2026.acl-long.2198/)
 [![Paper](https://img.shields.io/badge/arXiv-2511.23112-B31B1B.svg)](https://arxiv.org/abs/2511.23112)
 [![Website](https://img.shields.io/badge/Website-MathSight-black.svg)](https://cnu-bot-group.github.io/MathSight/)
+
+🎉 **MathSight was accepted as a Long Paper at the ACL 2026 Main Conference and is now officially published in the Proceedings of ACL 2026.**
+
+📖 **Official Paper:** [ACL Anthology](https://aclanthology.org/2026.acl-long.2198/)  
+📄 **Preprint:** [arXiv:2511.23112](https://arxiv.org/abs/2511.23112)  
+🌐 **Project Page:** [MathSight Website](https://cnu-bot-group.github.io/MathSight/)
+
+---
+
+## 🔔 Updates
+
+- **2026-07:** 📚 MathSight is now published in the *Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)* and available on ACL Anthology.
+- **2026-04-04:** 🎉 MathSight was accepted as a Long Paper at the ACL 2026 Main Conference.
+- **2025-11-15:** Initial MathSight dataset and code released.
 
 ---
 
@@ -84,3 +100,53 @@ Each JSONL line corresponds to one problem and follows the schema:
   "difficulty": "Graduate-level",
   "is_proof": false
 }
+
+## 📄 Paper
+
+**MathSight: A Benchmark Exploring Have Vision-Language Models Really Seen in University-Level Mathematical Reasoning?**
+
+**Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026), Volume 1: Long Papers**
+
+- **ACL Anthology:** https://aclanthology.org/2026.acl-long.2198/
+- **DOI:** https://doi.org/10.18653/v1/2026.acl-long.2198
+- **arXiv:** https://arxiv.org/abs/2511.23112
+- **Project Page:** https://cnu-bot-group.github.io/MathSight/
+- **Pages:** 47573–47604
+- **Location:** San Diego, California, United States
+
+---
+
+## 📝 Citation
+
+If you find MathSight useful in your research, please consider citing our paper:
+
+```bibtex
+@inproceedings{wang-etal-2026-mathsight,
+    title = "{M}ath{S}ight: A Benchmark Exploring Have Vision-Language Models Really Seen in University-Level Mathematical Reasoning?",
+    author = "Wang, Yuandong  and
+      Cui, Yao  and
+      Zhao, Yuxin  and
+      Yang, Zhen  and
+      Zhu, Yangfu  and
+      Shao, Zhenzhou",
+    editor = "Liakata, Maria  and
+      Moreira, Viviane P.  and
+      Zhang, Jiajun  and
+      Jurgens, David",
+    booktitle = "Proceedings of the 64th Annual Meeting of the {A}ssociation for {C}omputational {L}inguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2026",
+    address = "San Diego, California, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.acl-long.2198/",
+    doi = "10.18653/v1/2026.acl-long.2198",
+    pages = "47573--47604",
+    ISBN = "979-8-89176-390-6"
+}
+```
+
+---
+
+## 📜 License
+
+This project is released under the [MIT License](LICENSE).

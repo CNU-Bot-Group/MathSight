@@ -100,6 +100,8 @@ Each JSONL line corresponds to one problem and follows the schema:
   "difficulty": "Graduate-level",
   "is_proof": false
 }
+```
+
 
 ## 📄 Paper
 
